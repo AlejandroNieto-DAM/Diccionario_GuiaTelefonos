@@ -286,9 +286,9 @@ class Guia_Tlf{
 		     * @brief Inicializa un iterator al comienzo de la guia
 		     * */
 		    iterator  begin(){
-			iterator i;
-			i.it=datos.begin();
-			return i;
+                iterator i;
+                i.it=datos.begin();
+                return i;
 		    }	
 		    /**
 		     * @brief Inicializa un iterator al final de la guia
