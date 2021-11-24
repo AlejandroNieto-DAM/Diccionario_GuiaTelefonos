@@ -1,0 +1,296 @@
+\hypertarget{guiatlf_8h_source}{}\doxysection{guiatlf.\+h}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#ifndef \_GUIA\_TLF\_H}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#define \_GUIA\_TLF\_H}}
+\DoxyCodeLine{8 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{12 \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 istream \&operator>>(istream \&is, pair<string, string> \&d)}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{17     getline(is, d.first, \textcolor{charliteral}{'\(\backslash\)t'});}
+\DoxyCodeLine{18     getline(is, d.second);}
+\DoxyCodeLine{19     \textcolor{keywordflow}{return} is;}
+\DoxyCodeLine{20 \}}
+\DoxyCodeLine{21 }
+\DoxyCodeLine{22 ostream \&operator<<(ostream \&os, \textcolor{keyword}{const} pair<const string, string> \&d)}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24 }
+\DoxyCodeLine{25     os << d.first << \textcolor{charliteral}{'\(\backslash\)t'} << d.second << endl;}
+\DoxyCodeLine{26     \textcolor{keywordflow}{return} os;}
+\DoxyCodeLine{27 \}}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{45 \textcolor{keyword}{class }\mbox{\hyperlink{class_guia___tlf}{Guia\_Tlf}}}
+\DoxyCodeLine{46 \{}
+\DoxyCodeLine{61 \textcolor{keyword}{private}:}
+\DoxyCodeLine{62     map<string, string> datos; \textcolor{comment}{//si admites que haya nombres repetidos tendrías que usar un}}
+\DoxyCodeLine{63                                \textcolor{comment}{//multimap}}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65 \textcolor{keyword}{public}:}
+\DoxyCodeLine{71     \textcolor{comment}{//si fuese un multimap no podriamos usar []. Ademas que deberiamos devolver p.e un vector con todos}}
+\DoxyCodeLine{72     \textcolor{comment}{// los telefonos asociados a dicho nombre}}
+\DoxyCodeLine{73     \textcolor{keywordtype}{string} \&\mbox{\hyperlink{class_guia___tlf_ab2c734a7f3f3cd63ad95f525502474ea}{operator[]}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string} \&nombre)}
+\DoxyCodeLine{74     \{}
+\DoxyCodeLine{75         \textcolor{keywordflow}{return} datos[nombre];}
+\DoxyCodeLine{76     \}}
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78     \textcolor{keywordtype}{string} gettelefono(\textcolor{keyword}{const} \textcolor{keywordtype}{string} \&nombre)}
+\DoxyCodeLine{79     \{}
+\DoxyCodeLine{80         map<string, string>::iterator it = datos.find(nombre);}
+\DoxyCodeLine{81         \textcolor{keywordflow}{if} (it == datos.end())}
+\DoxyCodeLine{82             \textcolor{keywordflow}{return} string(\textcolor{stringliteral}{"{}"{}});}
+\DoxyCodeLine{83         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{84             \textcolor{keywordflow}{return} it-\/>second;}
+\DoxyCodeLine{85     \}}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{93     pair<map<string, string>::iterator, \textcolor{keywordtype}{bool}> \mbox{\hyperlink{class_guia___tlf_add78a6fe5e8090ad6f71bbb160b70f77}{insert}}(\textcolor{keywordtype}{string} nombre, \textcolor{keywordtype}{string} tlf)}
+\DoxyCodeLine{94     \{}
+\DoxyCodeLine{95         pair<string, string> p(nombre, tlf);}
+\DoxyCodeLine{96         pair<map<string, string>::iterator, \textcolor{keywordtype}{bool}> ret;}
+\DoxyCodeLine{97 }
+\DoxyCodeLine{98         ret = datos.insert(p); \textcolor{comment}{//datos.insert(datos.begin(),p); tambien funcionaría}}
+\DoxyCodeLine{99         \textcolor{keywordflow}{return} ret;}
+\DoxyCodeLine{100     \}}
+\DoxyCodeLine{101 }
+\DoxyCodeLine{107     pair<map<string, string>::iterator, \textcolor{keywordtype}{bool}> \mbox{\hyperlink{class_guia___tlf_a4c4e4cc9540896434edd915296e56c87}{insert}}(pair<string, string> p)}
+\DoxyCodeLine{108     \{}
+\DoxyCodeLine{109 }
+\DoxyCodeLine{110         pair<map<string, string>::iterator, \textcolor{keywordtype}{bool}> ret;}
+\DoxyCodeLine{111 }
+\DoxyCodeLine{112         ret = datos.insert(p); \textcolor{comment}{//datos.insert(datos.begin(),p); tambien funcionaría}}
+\DoxyCodeLine{113         \textcolor{keywordflow}{return} ret;}
+\DoxyCodeLine{114     \}}
+\DoxyCodeLine{115 }
+\DoxyCodeLine{121     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_guia___tlf_a57e32bbc9e76567d22e5275d4d2a6515}{borrar}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string} \&nombre)}
+\DoxyCodeLine{122     \{}
+\DoxyCodeLine{123         map<string, string>::iterator itlow = datos.lower\_bound(nombre);   \textcolor{comment}{//el primero que tiene dicho nombre}}
+\DoxyCodeLine{124         map<string, string>::iterator itupper = datos.lower\_bound(nombre); \textcolor{comment}{//el primero que ya no tiene dicho nombre}}
+\DoxyCodeLine{125         datos.erase(itlow, itupper);                                       \textcolor{comment}{//borramos todos aquellos que tiene dicho nombre}}
+\DoxyCodeLine{126         \textcolor{comment}{//OTRA ALTERNATIVA}}
+\DoxyCodeLine{127         \textcolor{comment}{//pair<map<string,string>::iterator,map<string,string>::iterator>ret;}}
+\DoxyCodeLine{128         \textcolor{comment}{//ret = datos.equal\_range(nombre}}
+\DoxyCodeLine{129         \textcolor{comment}{//datos.erase(ret.first,ret.second);}}
+\DoxyCodeLine{130     \}}
+\DoxyCodeLine{131 }
+\DoxyCodeLine{137     \textcolor{comment}{//con map siempre hay uno con multimap puede existir mas de uno}}
+\DoxyCodeLine{138     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_guia___tlf_af8adac24fd35985b9016a4a38cca60f4}{borrar}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string} \&nombre, \textcolor{keyword}{const} \textcolor{keywordtype}{string} \&tlf)}
+\DoxyCodeLine{139     \{}
+\DoxyCodeLine{140         map<string, string>::iterator itlow = datos.lower\_bound(nombre);   \textcolor{comment}{//el primero que tiene dicho nombre}}
+\DoxyCodeLine{141         map<string, string>::iterator itupper = datos.upper\_bound(nombre); \textcolor{comment}{//el primero que ya no tiene dicho nombre}}
+\DoxyCodeLine{142         map<string, string>::iterator it;}
+\DoxyCodeLine{143         \textcolor{keywordtype}{bool} salir = \textcolor{keyword}{false};}
+\DoxyCodeLine{144         \textcolor{keywordflow}{for} (it = itlow; it != itupper \&\& !salir; ++it)}
+\DoxyCodeLine{145         \{}
+\DoxyCodeLine{146             \textcolor{keywordflow}{if} (it-\/>second == tlf)}
+\DoxyCodeLine{147             \{}
+\DoxyCodeLine{148                 datos.erase(it);}
+\DoxyCodeLine{149                 salir = \textcolor{keyword}{true};}
+\DoxyCodeLine{150             \}}
+\DoxyCodeLine{151         \}}
+\DoxyCodeLine{152     \}}
+\DoxyCodeLine{157     \textcolor{keywordtype}{int} \mbox{\hyperlink{class_guia___tlf_a727ab46d490b4196a71f623644906a81}{size}}()\textcolor{keyword}{ const}}
+\DoxyCodeLine{158 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{159         \textcolor{keywordflow}{return} datos.size();}
+\DoxyCodeLine{160     \}}
+\DoxyCodeLine{166     \textcolor{comment}{//al ser un map debe de ser 0 o 1. Si fuese un multimap podríamos tener mas de uno}}
+\DoxyCodeLine{167     \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{int} \mbox{\hyperlink{class_guia___tlf_aa63213524c6339ea89baae2b5d2ebb69}{contabiliza}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string} \&nombre)}
+\DoxyCodeLine{168     \{}
+\DoxyCodeLine{169         \textcolor{keywordflow}{return} datos.count(nombre);}
+\DoxyCodeLine{170     \}}
+\DoxyCodeLine{171 }
+\DoxyCodeLine{175     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_guia___tlf_a36ac970ece51a62763bb3898159d0047}{clear}}()}
+\DoxyCodeLine{176     \{}
+\DoxyCodeLine{177         datos.clear();}
+\DoxyCodeLine{178     \}}
+\DoxyCodeLine{179 }
+\DoxyCodeLine{185     \mbox{\hyperlink{class_guia___tlf}{Guia\_Tlf}} \mbox{\hyperlink{class_guia___tlf_a3e0b08a1985d3c72853690730319172f}{operator+}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_guia___tlf}{Guia\_Tlf}} \&g)}
+\DoxyCodeLine{186     \{}
+\DoxyCodeLine{187         \mbox{\hyperlink{class_guia___tlf}{Guia\_Tlf}} aux(*\textcolor{keyword}{this});}
+\DoxyCodeLine{188         map<string, string>::const\_iterator it;}
+\DoxyCodeLine{189         \textcolor{keywordflow}{for} (it = g.datos.begin(); it != g.datos.end(); ++it)}
+\DoxyCodeLine{190         \{}
+\DoxyCodeLine{191             aux.\mbox{\hyperlink{class_guia___tlf_add78a6fe5e8090ad6f71bbb160b70f77}{insert}}(it-\/>first, it-\/>second);}
+\DoxyCodeLine{192         \}}
+\DoxyCodeLine{193         \textcolor{keywordflow}{return} aux;}
+\DoxyCodeLine{194     \}}
+\DoxyCodeLine{195 }
+\DoxyCodeLine{201     \mbox{\hyperlink{class_guia___tlf}{Guia\_Tlf}} \mbox{\hyperlink{class_guia___tlf_ac381d53f275ce769830e07fbc56902b0}{operator-\/}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_guia___tlf}{Guia\_Tlf}} \&g)}
+\DoxyCodeLine{202     \{}
+\DoxyCodeLine{203         \mbox{\hyperlink{class_guia___tlf}{Guia\_Tlf}} aux(*\textcolor{keyword}{this});}
+\DoxyCodeLine{204         map<string, string>::const\_iterator it;}
+\DoxyCodeLine{205         \textcolor{keywordflow}{for} (it = g.datos.begin(); it != g.datos.end(); ++it)}
+\DoxyCodeLine{206         \{}
+\DoxyCodeLine{207             aux.\mbox{\hyperlink{class_guia___tlf_a57e32bbc9e76567d22e5275d4d2a6515}{borrar}}(it-\/>first, it-\/>second);}
+\DoxyCodeLine{208         \}}
+\DoxyCodeLine{209         \textcolor{keywordflow}{return} aux;}
+\DoxyCodeLine{210     \}}
+\DoxyCodeLine{217     \mbox{\hyperlink{class_guia___tlf}{Guia\_Tlf}} \mbox{\hyperlink{class_guia___tlf_a0a8ed6b386e90a6799a8693653b3e187}{previos}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string} \&nombre, \textcolor{keyword}{const} \textcolor{keywordtype}{string} \&tlf)}
+\DoxyCodeLine{218     \{}
+\DoxyCodeLine{219         map<string, string>::value\_compare vc = datos.value\_comp(); \textcolor{comment}{//map<string,string>::key\_compare vc=datos.key\_comp()}}
+\DoxyCodeLine{220         \mbox{\hyperlink{class_guia___tlf}{Guia\_Tlf}} aux;}
+\DoxyCodeLine{221         pair<string, string> p(nombre, tlf);}
+\DoxyCodeLine{222         map<string, string>::iterator it = datos.begin();}
+\DoxyCodeLine{223         \textcolor{keywordflow}{while} (vc(*it, p))}
+\DoxyCodeLine{224         \{}
+\DoxyCodeLine{225             aux.\mbox{\hyperlink{class_guia___tlf_add78a6fe5e8090ad6f71bbb160b70f77}{insert}}(*it++);}
+\DoxyCodeLine{226         \}}
+\DoxyCodeLine{227         \textcolor{keywordflow}{return} aux;}
+\DoxyCodeLine{228     \}}
+\DoxyCodeLine{229 }
+\DoxyCodeLine{237     \textcolor{keyword}{friend} ostream \&\mbox{\hyperlink{class_guia___tlf_adea38385199ec0381fef33e815b4d640}{operator<<}}(ostream \&os, \mbox{\hyperlink{class_guia___tlf}{Guia\_Tlf}} \&g)}
+\DoxyCodeLine{238     \{}
+\DoxyCodeLine{239         map<string, string>::iterator it;}
+\DoxyCodeLine{240         \textcolor{keywordflow}{for} (it = g.datos.begin(); it != g.datos.end(); ++it)}
+\DoxyCodeLine{241         \{}
+\DoxyCodeLine{242             os << it-\/>first << \textcolor{stringliteral}{"{}\(\backslash\)t"{}} << it-\/>second << endl;}
+\DoxyCodeLine{243         \}}
+\DoxyCodeLine{244         \textcolor{keywordflow}{return} os;}
+\DoxyCodeLine{245     \}}
+\DoxyCodeLine{246 }
+\DoxyCodeLine{254     \textcolor{keyword}{friend} istream \&\mbox{\hyperlink{class_guia___tlf_a67a379dcca1cbf315163914471efc654}{operator>>}}(istream \&is, \mbox{\hyperlink{class_guia___tlf}{Guia\_Tlf}} \&g)}
+\DoxyCodeLine{255     \{}
+\DoxyCodeLine{256         pair<string, string> p;}
+\DoxyCodeLine{257         \mbox{\hyperlink{class_guia___tlf}{Guia\_Tlf}} aux;}
+\DoxyCodeLine{258 }
+\DoxyCodeLine{259         \textcolor{keywordflow}{while} (is >> p)}
+\DoxyCodeLine{260         \{}
+\DoxyCodeLine{261             aux.\mbox{\hyperlink{class_guia___tlf_add78a6fe5e8090ad6f71bbb160b70f77}{insert}}(p);}
+\DoxyCodeLine{262         \}}
+\DoxyCodeLine{263         g = aux;}
+\DoxyCodeLine{264         \textcolor{keywordflow}{return} is;}
+\DoxyCodeLine{265     \}}
+\DoxyCodeLine{266 }
+\DoxyCodeLine{270     \textcolor{keyword}{class }\mbox{\hyperlink{class_guia___tlf_1_1iterator}{iterator}}}
+\DoxyCodeLine{271     \{}
+\DoxyCodeLine{272         \textcolor{keyword}{private}:}
+\DoxyCodeLine{273             map<string, string>::iterator it;}
+\DoxyCodeLine{274 }
+\DoxyCodeLine{275         \textcolor{keyword}{public}:}
+\DoxyCodeLine{276             \mbox{\hyperlink{class_guia___tlf_1_1iterator}{iterator}} \&operator++()}
+\DoxyCodeLine{277             \{}
+\DoxyCodeLine{278                 ++it;}
+\DoxyCodeLine{279                 \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{280             \}}
+\DoxyCodeLine{281             \mbox{\hyperlink{class_guia___tlf_1_1iterator}{iterator}} \&operator-\/-\/()}
+\DoxyCodeLine{282             \{}
+\DoxyCodeLine{283                 -\/-\/it;}
+\DoxyCodeLine{284                 \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{285             \}}
+\DoxyCodeLine{286             pair<const string, string> \&operator*()}
+\DoxyCodeLine{287             \{}
+\DoxyCodeLine{288                 \textcolor{keywordflow}{return} *it;}
+\DoxyCodeLine{289             \}}
+\DoxyCodeLine{290             \textcolor{keywordtype}{bool} operator==(\textcolor{keyword}{const} \mbox{\hyperlink{class_guia___tlf_1_1iterator}{iterator}} \&i)}
+\DoxyCodeLine{291             \{}
+\DoxyCodeLine{292                 \textcolor{keywordflow}{return} i.it == it;}
+\DoxyCodeLine{293             \}}
+\DoxyCodeLine{294 }
+\DoxyCodeLine{295             \textcolor{keywordtype}{bool} operator!=(\textcolor{keyword}{const} \mbox{\hyperlink{class_guia___tlf_1_1iterator}{iterator}} \&i)}
+\DoxyCodeLine{296             \{}
+\DoxyCodeLine{297                 \textcolor{keywordflow}{return} i.it != it;}
+\DoxyCodeLine{298             \}}
+\DoxyCodeLine{299             \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{class_guia___tlf}{Guia\_Tlf}};}
+\DoxyCodeLine{300     \};}
+\DoxyCodeLine{301 }
+\DoxyCodeLine{305     \mbox{\hyperlink{class_guia___tlf_1_1iterator}{iterator}} \mbox{\hyperlink{class_guia___tlf_a0a0f50f45b96349e005d7457a0c05574}{begin}}()}
+\DoxyCodeLine{306     \{}
+\DoxyCodeLine{307         \mbox{\hyperlink{class_guia___tlf_1_1iterator}{iterator}} i;}
+\DoxyCodeLine{308         i.it = datos.begin();}
+\DoxyCodeLine{309         \textcolor{keywordflow}{return} i;}
+\DoxyCodeLine{310     \}}
+\DoxyCodeLine{311 }
+\DoxyCodeLine{315     \mbox{\hyperlink{class_guia___tlf_1_1iterator}{iterator}} \mbox{\hyperlink{class_guia___tlf_a91777ba1c5e206259943af1eae5aa305}{end}}()}
+\DoxyCodeLine{316     \{}
+\DoxyCodeLine{317         \mbox{\hyperlink{class_guia___tlf_1_1iterator}{iterator}} i;}
+\DoxyCodeLine{318         i.it = datos.end();}
+\DoxyCodeLine{319         \textcolor{keywordflow}{return} i;}
+\DoxyCodeLine{320     \}}
+\DoxyCodeLine{321 }
+\DoxyCodeLine{328     \mbox{\hyperlink{class_guia___tlf}{Guia\_Tlf}} \mbox{\hyperlink{class_guia___tlf_a413b5a259d51f9ca1b51a521a2333be4}{tlfByFirstLetter}}(\textcolor{keyword}{const} \textcolor{keywordtype}{char} \&a)}
+\DoxyCodeLine{329     \{}
+\DoxyCodeLine{330 }
+\DoxyCodeLine{331         \mbox{\hyperlink{class_guia___tlf_1_1iterator}{Guia\_Tlf::iterator}} it;}
+\DoxyCodeLine{332         \mbox{\hyperlink{class_guia___tlf}{Guia\_Tlf}} sameFirstLetter;}
+\DoxyCodeLine{333         \textcolor{keywordflow}{for} (it = this-\/>\mbox{\hyperlink{class_guia___tlf_a0a0f50f45b96349e005d7457a0c05574}{begin}}(); it != this-\/>\mbox{\hyperlink{class_guia___tlf_a91777ba1c5e206259943af1eae5aa305}{end}}(); ++it)}
+\DoxyCodeLine{334         \{}
+\DoxyCodeLine{335             \textcolor{keywordflow}{if} ((*it).first[0] == a)}
+\DoxyCodeLine{336             \{}
+\DoxyCodeLine{337                 sameFirstLetter.\mbox{\hyperlink{class_guia___tlf_add78a6fe5e8090ad6f71bbb160b70f77}{insert}}(*it);}
+\DoxyCodeLine{338             \}}
+\DoxyCodeLine{339         \}}
+\DoxyCodeLine{340 }
+\DoxyCodeLine{341         \textcolor{keywordflow}{return} sameFirstLetter;}
+\DoxyCodeLine{342     \}}
+\DoxyCodeLine{343 }
+\DoxyCodeLine{352     \mbox{\hyperlink{class_guia___tlf}{Guia\_Tlf}} \mbox{\hyperlink{class_guia___tlf_a22a3ea14e62e7c8e30294a5525c82bfb}{interseccion}}(\mbox{\hyperlink{class_guia___tlf}{Guia\_Tlf}} other)}
+\DoxyCodeLine{353     \{}
+\DoxyCodeLine{354         \mbox{\hyperlink{class_guia___tlf}{Guia\_Tlf}} sameKeys;}
+\DoxyCodeLine{355 }
+\DoxyCodeLine{356         \mbox{\hyperlink{class_guia___tlf_1_1iterator}{Guia\_Tlf::iterator}} it;}
+\DoxyCodeLine{357         \textcolor{keywordtype}{string} tlfOther;}
+\DoxyCodeLine{358         \textcolor{keywordflow}{for} (it = this-\/>\mbox{\hyperlink{class_guia___tlf_a0a0f50f45b96349e005d7457a0c05574}{begin}}(); it != this-\/>\mbox{\hyperlink{class_guia___tlf_a91777ba1c5e206259943af1eae5aa305}{end}}(); ++it)}
+\DoxyCodeLine{359         \{}
+\DoxyCodeLine{360             tlfOther = other.gettelefono((*it).first);}
+\DoxyCodeLine{361             \textcolor{keywordflow}{if} (tlfOther == (*it).second)}
+\DoxyCodeLine{362             \{}
+\DoxyCodeLine{363                 sameKeys.\mbox{\hyperlink{class_guia___tlf_add78a6fe5e8090ad6f71bbb160b70f77}{insert}}(*it);}
+\DoxyCodeLine{364             \}}
+\DoxyCodeLine{365         \}}
+\DoxyCodeLine{366 }
+\DoxyCodeLine{367         \textcolor{keywordflow}{return} sameKeys;}
+\DoxyCodeLine{368     \}}
+\DoxyCodeLine{369 }
+\DoxyCodeLine{378     \mbox{\hyperlink{class_guia___tlf}{Guia\_Tlf}} \mbox{\hyperlink{class_guia___tlf_a8f220c8c93f80a97eec38722d406228a}{getTlfByRange}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string} \&firstName, \textcolor{keyword}{const} \textcolor{keywordtype}{string} \&secondName)}
+\DoxyCodeLine{379     \{}
+\DoxyCodeLine{380 }
+\DoxyCodeLine{381         \textcolor{comment}{/* To do this method with multimap we have to find the first element with the first name}}
+\DoxyCodeLine{382 \textcolor{comment}{        with lower\_bound and the supossed key that has to be after of the secondName with upper\_bound*/}}
+\DoxyCodeLine{383         map<string, string>::iterator it = datos.find(firstName);}
+\DoxyCodeLine{384         map<string, string>::iterator it2 = datos.find(secondName);}
+\DoxyCodeLine{385 }
+\DoxyCodeLine{386         map<string, string>::value\_compare vc = datos.value\_comp();}
+\DoxyCodeLine{387 }
+\DoxyCodeLine{388         \mbox{\hyperlink{class_guia___tlf}{Guia\_Tlf}} aux;}
+\DoxyCodeLine{389 }
+\DoxyCodeLine{390         \textcolor{keywordflow}{while} (vc(*it, *it2))}
+\DoxyCodeLine{391         \{}
+\DoxyCodeLine{392             aux.\mbox{\hyperlink{class_guia___tlf_add78a6fe5e8090ad6f71bbb160b70f77}{insert}}(*it++);}
+\DoxyCodeLine{393         \}}
+\DoxyCodeLine{394 }
+\DoxyCodeLine{395         aux.\mbox{\hyperlink{class_guia___tlf_add78a6fe5e8090ad6f71bbb160b70f77}{insert}}(*it++);}
+\DoxyCodeLine{396 }
+\DoxyCodeLine{397         \textcolor{keywordflow}{return} aux;}
+\DoxyCodeLine{398     \}}
+\DoxyCodeLine{399 }
+\DoxyCodeLine{408     \textcolor{keywordtype}{bool} \mbox{\hyperlink{class_guia___tlf_ad1972a9b0ead0e1e9b0a1633b482fad9}{modifyTlfByname}}(\textcolor{keyword}{const} \textcolor{keywordtype}{string} \&name, \textcolor{keyword}{const} \textcolor{keywordtype}{string} \&newTlf)}
+\DoxyCodeLine{409     \{}
+\DoxyCodeLine{410 }
+\DoxyCodeLine{411         \mbox{\hyperlink{class_guia___tlf_1_1iterator}{Guia\_Tlf::iterator}} it;}
+\DoxyCodeLine{412         \textcolor{keywordflow}{for} (it = this-\/>\mbox{\hyperlink{class_guia___tlf_a0a0f50f45b96349e005d7457a0c05574}{begin}}(); it != this-\/>\mbox{\hyperlink{class_guia___tlf_a91777ba1c5e206259943af1eae5aa305}{end}}(); ++it)}
+\DoxyCodeLine{413         \{}
+\DoxyCodeLine{414             \textcolor{keywordflow}{if} ((*it).second == newTlf)}
+\DoxyCodeLine{415             \{}
+\DoxyCodeLine{416                 \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{417             \}}
+\DoxyCodeLine{418         \}}
+\DoxyCodeLine{419 }
+\DoxyCodeLine{420         datos.find(name)-\/>second = newTlf;}
+\DoxyCodeLine{421 }
+\DoxyCodeLine{422         \textcolor{comment}{//With this and commenting the previous condition we can do a bucle running all the tlf of this contact and changing it}}
+\DoxyCodeLine{423         \textcolor{comment}{/*}}
+\DoxyCodeLine{424 \textcolor{comment}{        multimap<string, string>::iterator itlow = datos.lower\_bound(name);   }}
+\DoxyCodeLine{425 \textcolor{comment}{        multimap<string, string>::iterator itupper = datos.upper\_bound(name); }}
+\DoxyCodeLine{426 \textcolor{comment}{        */}}
+\DoxyCodeLine{427 }
+\DoxyCodeLine{428         }
+\DoxyCodeLine{429         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{430     \}}
+\DoxyCodeLine{431 \};}
+\DoxyCodeLine{432 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

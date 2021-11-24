@@ -1,0 +1,140 @@
+\hypertarget{class_diccionario}{}\doxysection{Diccionario\texorpdfstring{$<$}{<} T, U \texorpdfstring{$>$}{>} Class Template Reference}
+\label{class_diccionario}\index{Diccionario$<$ T, U $>$@{Diccionario$<$ T, U $>$}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{class_diccionario_1_1iterator}{iterator}}
+\begin{DoxyCompactList}\small\item\em clase para iterar sobre la guia \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_diccionario_ad8917f4e401b473139403dc5964e8307}\label{class_diccionario_ad8917f4e401b473139403dc5964e8307}} 
+{\bfseries Diccionario} (const \mbox{\hyperlink{class_diccionario}{Diccionario}} \&D)
+\item 
+\mbox{\Hypertarget{class_diccionario_ad30f63b3857757296f1302273ee50a3d}\label{class_diccionario_ad30f63b3857757296f1302273ee50a3d}} 
+\mbox{\hyperlink{class_diccionario}{Diccionario}}$<$ T, U $>$ \& {\bfseries operator=} (const \mbox{\hyperlink{class_diccionario}{Diccionario}}$<$ T, U $>$ \&D)
+\item 
+\mbox{\Hypertarget{class_diccionario_aed08682f43af8f4537c6a88211bb225a}\label{class_diccionario_aed08682f43af8f4537c6a88211bb225a}} 
+bool {\bfseries Esta\+\_\+\+Clave} (const T \&p, typename list$<$ \mbox{\hyperlink{structdata}{data}}$<$ T, U $>$ $>$\+::\mbox{\hyperlink{class_diccionario_1_1iterator}{iterator}} \&it\+\_\+out)
+\item 
+\mbox{\Hypertarget{class_diccionario_af520b73907852cc8002260ddf9fb822c}\label{class_diccionario_af520b73907852cc8002260ddf9fb822c}} 
+void {\bfseries Insertar} (const T \&clave, const list$<$ U $>$ \&info)
+\item 
+\mbox{\Hypertarget{class_diccionario_a7e167da231bff610001df3c20cc9b7a7}\label{class_diccionario_a7e167da231bff610001df3c20cc9b7a7}} 
+void {\bfseries Add\+Significado\+\_\+\+Palabra} (const U \&s, const T \&p)
+\item 
+\mbox{\Hypertarget{class_diccionario_a292817b0fda893a41cd9313b4c65cc61}\label{class_diccionario_a292817b0fda893a41cd9313b4c65cc61}} 
+list$<$ U $>$ {\bfseries get\+Info\+\_\+\+Asoc} (const T \&p)
+\item 
+\mbox{\Hypertarget{class_diccionario_aa576b001759429fd58210ca57257d6f8}\label{class_diccionario_aa576b001759429fd58210ca57257d6f8}} 
+int {\bfseries size} () const
+\item 
+\mbox{\Hypertarget{class_diccionario_aa17ce3d7317d78f5927ae7c0564089cc}\label{class_diccionario_aa17ce3d7317d78f5927ae7c0564089cc}} 
+\mbox{\hyperlink{class_diccionario_1_1iterator}{iterator}} {\bfseries begin} ()
+\begin{DoxyCompactList}\small\item\em Inicializa un iterator al comienzo de la guia. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_diccionario_adb5cdbfce59b4005bd07473273df3a8e}\label{class_diccionario_adb5cdbfce59b4005bd07473273df3a8e}} 
+\mbox{\hyperlink{class_diccionario_1_1iterator}{iterator}} {\bfseries end} ()
+\begin{DoxyCompactList}\small\item\em Inicializa un iterator al final de la guia. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_diccionario_a827eeb89b3c7b557400ecdafc3827dc8}\label{class_diccionario_a827eeb89b3c7b557400ecdafc3827dc8}} 
+list$<$ \mbox{\hyperlink{structdata}{data}}$<$ T, U $>$ $>$\+::const\+\_\+iterator {\bfseries begin} () const
+\item 
+\mbox{\Hypertarget{class_diccionario_ac102d81d95537efa5259aeb8277256ef}\label{class_diccionario_ac102d81d95537efa5259aeb8277256ef}} 
+list$<$ \mbox{\hyperlink{structdata}{data}}$<$ T, U $>$ $>$\+::const\+\_\+iterator {\bfseries end} () const
+\item 
+void \mbox{\hyperlink{class_diccionario_a0c59804f55f3286b6f05d07aa6cefdf6}{delete\+Element\+By\+Key}} (const T \&p)
+\begin{DoxyCompactList}\small\item\em Element a values by it\`{}s key. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_diccionario}{Diccionario}}$<$ T, U $>$ \mbox{\hyperlink{class_diccionario_a01cdf80ec355b27f0043d4337eab637b}{get\+Range\+Keys}} (const T \&p, const T \&t)
+\begin{DoxyCompactList}\small\item\em Get the values in a range based on a two keys of the dictionary. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_diccionario}{Diccionario}}$<$ T, U $>$ \mbox{\hyperlink{class_diccionario_aa290e0c4ed2c0eaeb927e7d2079ba32e}{diferencia\+Diccionario}} (\mbox{\hyperlink{class_diccionario}{Diccionario}} \&g)
+\begin{DoxyCompactList}\small\item\em That method does the difference of two dictionaries (quit B values that exist in A) \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_diccionario}{Diccionario}}$<$ T, U $>$ \mbox{\hyperlink{class_diccionario_ad1b17de55a4ec9a37ee2f5aaeb2016c4}{union\+Diccionarios}} (\mbox{\hyperlink{class_diccionario}{Diccionario}} \&g)
+\begin{DoxyCompactList}\small\item\em In this method to do this more efficient first do the difference of the dictionaries and add that values to our return dictionary and then we do the difference to the other dictionary with the difference first dictionary to get the same values in the other dictionary and we start to run all the values that are equals comparing all their definitions too to see if they are different or not and if the definition is different of all the definitions that have the word we add it. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_diccionario_a0c59804f55f3286b6f05d07aa6cefdf6}\label{class_diccionario_a0c59804f55f3286b6f05d07aa6cefdf6}} 
+\index{Diccionario$<$ T, U $>$@{Diccionario$<$ T, U $>$}!deleteElementByKey@{deleteElementByKey}}
+\index{deleteElementByKey@{deleteElementByKey}!Diccionario$<$ T, U $>$@{Diccionario$<$ T, U $>$}}
+\doxysubsubsection{\texorpdfstring{deleteElementByKey()}{deleteElementByKey()}}
+{\footnotesize\ttfamily template$<$class T , class U $>$ \\
+void \mbox{\hyperlink{class_diccionario}{Diccionario}}$<$ T, U $>$\+::delete\+Element\+By\+Key (\begin{DoxyParamCaption}\item[{const T \&}]{p }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Element a values by it\`{}s key. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & is the key of the value we want to delete \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPostcond}{Postcondition}
+the dictionary will delete the value if exists 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{class_diccionario_aa290e0c4ed2c0eaeb927e7d2079ba32e}\label{class_diccionario_aa290e0c4ed2c0eaeb927e7d2079ba32e}} 
+\index{Diccionario$<$ T, U $>$@{Diccionario$<$ T, U $>$}!diferenciaDiccionario@{diferenciaDiccionario}}
+\index{diferenciaDiccionario@{diferenciaDiccionario}!Diccionario$<$ T, U $>$@{Diccionario$<$ T, U $>$}}
+\doxysubsubsection{\texorpdfstring{diferenciaDiccionario()}{diferenciaDiccionario()}}
+{\footnotesize\ttfamily template$<$class T , class U $>$ \\
+\mbox{\hyperlink{class_diccionario}{Diccionario}}$<$ T, U $>$ \mbox{\hyperlink{class_diccionario}{Diccionario}}$<$ T, U $>$\+::diferencia\+Diccionario (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_diccionario}{Diccionario}}$<$ T, U $>$ \&}]{g }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+That method does the difference of two dictionaries (quit B values that exist in A) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em g} & is the other dictionary we want to do the difference \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Diccionario$<$\+T, U$>$ is the result of the difference of this -\/ g (dictionaries) 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_diccionario_a01cdf80ec355b27f0043d4337eab637b}\label{class_diccionario_a01cdf80ec355b27f0043d4337eab637b}} 
+\index{Diccionario$<$ T, U $>$@{Diccionario$<$ T, U $>$}!getRangeKeys@{getRangeKeys}}
+\index{getRangeKeys@{getRangeKeys}!Diccionario$<$ T, U $>$@{Diccionario$<$ T, U $>$}}
+\doxysubsubsection{\texorpdfstring{getRangeKeys()}{getRangeKeys()}}
+{\footnotesize\ttfamily template$<$class T , class U $>$ \\
+\mbox{\hyperlink{class_diccionario}{Diccionario}}$<$ T, U $>$ \mbox{\hyperlink{class_diccionario}{Diccionario}}$<$ T, U $>$\+::get\+Range\+Keys (\begin{DoxyParamCaption}\item[{const T \&}]{p,  }\item[{const T \&}]{t }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the values in a range based on a two keys of the dictionary. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & is the key we will part to find the values (included) \\
+\hline
+{\em t} & is the key we will finish to find the values (included) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyPrecond}{Precondition}
+p is ordered before t 
+\end{DoxyPrecond}
+\begin{DoxyReturn}{Returns}
+Diccionario$<$\+T, U$>$ the values between p and t 
+\end{DoxyReturn}
+\mbox{\Hypertarget{class_diccionario_ad1b17de55a4ec9a37ee2f5aaeb2016c4}\label{class_diccionario_ad1b17de55a4ec9a37ee2f5aaeb2016c4}} 
+\index{Diccionario$<$ T, U $>$@{Diccionario$<$ T, U $>$}!unionDiccionarios@{unionDiccionarios}}
+\index{unionDiccionarios@{unionDiccionarios}!Diccionario$<$ T, U $>$@{Diccionario$<$ T, U $>$}}
+\doxysubsubsection{\texorpdfstring{unionDiccionarios()}{unionDiccionarios()}}
+{\footnotesize\ttfamily template$<$class T , class U $>$ \\
+\mbox{\hyperlink{class_diccionario}{Diccionario}}$<$ T, U $>$ \mbox{\hyperlink{class_diccionario}{Diccionario}}$<$ T, U $>$\+::union\+Diccionarios (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_diccionario}{Diccionario}}$<$ T, U $>$ \&}]{g }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+In this method to do this more efficient first do the difference of the dictionaries and add that values to our return dictionary and then we do the difference to the other dictionary with the difference first dictionary to get the same values in the other dictionary and we start to run all the values that are equals comparing all their definitions too to see if they are different or not and if the definition is different of all the definitions that have the word we add it. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em g} & is the other dictionary we want to do the union \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Diccionario$<$\+T, U$>$ is the result dictionary of the union of this and the param value 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+diccionario.\+h\end{DoxyCompactItemize}

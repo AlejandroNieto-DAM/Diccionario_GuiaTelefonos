@@ -1,0 +1,344 @@
+\hypertarget{diccionario_8h_source}{}\doxysection{diccionario.\+h}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 \textcolor{preprocessor}{\#ifndef \_DICCIONARIO\_H}}
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#define \_DICCIONARIO\_H}}
+\DoxyCodeLine{3 }
+\DoxyCodeLine{4 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <string>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <list>}}
+\DoxyCodeLine{7 }
+\DoxyCodeLine{8 \textcolor{keyword}{using namespace }std;}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{comment}{/*Tipo elemento que define el diccionario. T es el tipo de dato asociado a una clave que}}
+\DoxyCodeLine{11 \textcolor{comment}{no se repite (DNI p.ej.) y list<U> es una lista de datos (string p.ej) asociados a la clave}}
+\DoxyCodeLine{12 \textcolor{comment}{de tipo T. El diccionario está ordenado de menor a mayor clave.}}
+\DoxyCodeLine{13 \textcolor{comment}{*/}}
+\DoxyCodeLine{14 \textcolor{keyword}{template} <\textcolor{keyword}{class} T, \textcolor{keyword}{class} U>}
+\DoxyCodeLine{15 \textcolor{keyword}{struct }\mbox{\hyperlink{structdata}{data}}}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17     T clave;}
+\DoxyCodeLine{18     list<U> info\_asoci;}
+\DoxyCodeLine{19 \};}
+\DoxyCodeLine{20 }
+\DoxyCodeLine{21 \textcolor{comment}{/*Comparador de datos. Ordena 2 registros de acuerdo a la clave de tipo T. Puede usarse como}}
+\DoxyCodeLine{22 \textcolor{comment}{ un funtor.}}
+\DoxyCodeLine{23 \textcolor{comment}{ */}}
+\DoxyCodeLine{24 \textcolor{keyword}{template} <\textcolor{keyword}{class} T, \textcolor{keyword}{class} U>}
+\DoxyCodeLine{25 \textcolor{keywordtype}{bool} operator<(\textcolor{keyword}{const} \mbox{\hyperlink{structdata}{data<T, U>}} \&d1, \textcolor{keyword}{const} \mbox{\hyperlink{structdata}{data<T, U>}} \&d2)}
+\DoxyCodeLine{26 \{}
+\DoxyCodeLine{27     \textcolor{keywordflow}{if} (d1.clave < d2.clave)}
+\DoxyCodeLine{28         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{29     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{30 \}}
+\DoxyCodeLine{31 }
+\DoxyCodeLine{32 \textcolor{comment}{/*Un diccionario es una lista de datos de los definidos anteriormente. Cuidado porque se}}
+\DoxyCodeLine{33 \textcolor{comment}{manejan listas de listas. Se añaden 2 funciones privadas que hacen más facil la implementación}}
+\DoxyCodeLine{34 \textcolor{comment}{de algunos operadores o funciones de la parte pública. Copiar copia un diccioario en}}
+\DoxyCodeLine{35 \textcolor{comment}{otro y borrar elimina todos los elementos de un diccionario. La implementación de copiar}}
+\DoxyCodeLine{36 \textcolor{comment}{puede hacerse usando iteradores o directamente usando la función assign.}}
+\DoxyCodeLine{37 \textcolor{comment}{*/}}
+\DoxyCodeLine{38 \textcolor{keyword}{template} <\textcolor{keyword}{class} T, \textcolor{keyword}{class} U>}
+\DoxyCodeLine{39 \textcolor{keyword}{class }\mbox{\hyperlink{class_diccionario}{Diccionario}}}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{41 }
+\DoxyCodeLine{42 \textcolor{keyword}{private}:}
+\DoxyCodeLine{43     list<data<T, U> > datos;}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45     \textcolor{keywordtype}{void} Copiar(\textcolor{keyword}{const} \mbox{\hyperlink{class_diccionario}{Diccionario<T, U>}} \&D)}
+\DoxyCodeLine{46     \{}
+\DoxyCodeLine{47         \textcolor{comment}{/*typename list<data<T,U> >::const\_iterator it\_d;}}
+\DoxyCodeLine{48 \textcolor{comment}{               typename list<data<T,U> >::iterator it=this-\/>datos.begin();*/}}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50         datos.assign(D.datos.begin(), D.datos.end());}
+\DoxyCodeLine{51         \textcolor{comment}{/*for (it\_d=D.datos.begin(); it\_d!=D.datos.end();++it\_d,++it)\{}}
+\DoxyCodeLine{52 \textcolor{comment}{                     this-\/>datos.insert(it,*it\_d);}}
+\DoxyCodeLine{53 \textcolor{comment}{}}
+\DoxyCodeLine{54 \textcolor{comment}{               \}*/}}
+\DoxyCodeLine{55     \}}
+\DoxyCodeLine{56 }
+\DoxyCodeLine{57     \textcolor{keywordtype}{void} Borrar()}
+\DoxyCodeLine{58     \{}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60         this-\/>datos.erase(datos.begin(), datos.end());}
+\DoxyCodeLine{61     \}}
+\DoxyCodeLine{62 }
+\DoxyCodeLine{63     \textcolor{keywordtype}{bool} findDefinition(\textcolor{keyword}{const} U \&s, \textcolor{keyword}{const} T \&key)}
+\DoxyCodeLine{64     \{}
+\DoxyCodeLine{65         \textcolor{keyword}{typename} list<U>::iterator it;}
+\DoxyCodeLine{66         list<U> \mbox{\hyperlink{structdata}{data}} = getInfo\_Asoc(key);}
+\DoxyCodeLine{67         \textcolor{keywordflow}{for} (it = \mbox{\hyperlink{structdata}{data}}.begin(); it != \mbox{\hyperlink{structdata}{data}}.end(); ++it)}
+\DoxyCodeLine{68         \{}
+\DoxyCodeLine{69             \textcolor{keywordflow}{if} ((*it) == s)}
+\DoxyCodeLine{70             \{}
+\DoxyCodeLine{71                 \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{72             \}}
+\DoxyCodeLine{73         \}}
+\DoxyCodeLine{74         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{75     \}}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77 \textcolor{keyword}{public}:}
+\DoxyCodeLine{78     \textcolor{comment}{/* Constructor por defecto*/}}
+\DoxyCodeLine{79     \mbox{\hyperlink{class_diccionario}{Diccionario}}() : datos(list<\mbox{\hyperlink{structdata}{data<T, U>}} >()) \{\}}
+\DoxyCodeLine{80 }
+\DoxyCodeLine{81     \textcolor{comment}{/* Constructor de copias*/}}
+\DoxyCodeLine{82     \mbox{\hyperlink{class_diccionario}{Diccionario}}(\textcolor{keyword}{const} \mbox{\hyperlink{class_diccionario}{Diccionario}} \&D)}
+\DoxyCodeLine{83     \{}
+\DoxyCodeLine{84         Copiar(D);}
+\DoxyCodeLine{85     \}}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87     \textcolor{comment}{/* Desstructor*/}}
+\DoxyCodeLine{88     \mbox{\hyperlink{class_diccionario}{\string~Diccionario}}() \{\}}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90     \textcolor{comment}{/* Operador de asignación*/}}
+\DoxyCodeLine{91     \mbox{\hyperlink{class_diccionario}{Diccionario<T, U>}} \&operator=(\textcolor{keyword}{const} \mbox{\hyperlink{class_diccionario}{Diccionario<T, U>}} \&D)}
+\DoxyCodeLine{92     \{}
+\DoxyCodeLine{93         \textcolor{keywordflow}{if} (\textcolor{keyword}{this} != \&D)}
+\DoxyCodeLine{94         \{}
+\DoxyCodeLine{95             Borrar();}
+\DoxyCodeLine{96             Copiar(D);}
+\DoxyCodeLine{97         \}}
+\DoxyCodeLine{98         \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{99     \}}
+\DoxyCodeLine{100 }
+\DoxyCodeLine{101     \textcolor{comment}{/* Busca la clave p en el diccionario. Si está devuelve un iterador a}}
+\DoxyCodeLine{102 \textcolor{comment}{        dónde está clave. Si no está, devuelve end() y deja el iterador de salida}}
+\DoxyCodeLine{103 \textcolor{comment}{        apuntando al sitio dónde debería estar la clave}}
+\DoxyCodeLine{104 \textcolor{comment}{        */}}
+\DoxyCodeLine{105     \textcolor{keywordtype}{bool} Esta\_Clave(\textcolor{keyword}{const} T \&p, \textcolor{keyword}{typename} list<\mbox{\hyperlink{structdata}{data<T, U>}} >::\mbox{\hyperlink{class_diccionario_1_1iterator}{iterator}} \&it\_out)}
+\DoxyCodeLine{106     \{}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{108         \textcolor{keywordflow}{if} (datos.size() > 0)}
+\DoxyCodeLine{109         \{}
+\DoxyCodeLine{110 }
+\DoxyCodeLine{111             \textcolor{keyword}{typename} list<data<T, U> >\mbox{\hyperlink{class_diccionario_1_1iterator}{::iterator}} it;}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113             \textcolor{keywordflow}{for} (it = datos.begin(); it != datos.end(); ++it)}
+\DoxyCodeLine{114             \{}
+\DoxyCodeLine{115                 \textcolor{keywordflow}{if} ((*it).clave == p)}
+\DoxyCodeLine{116                 \{}
+\DoxyCodeLine{117                     it\_out = it;}
+\DoxyCodeLine{118                     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{119                 \}}
+\DoxyCodeLine{120                 \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ((*it).clave > p)}
+\DoxyCodeLine{121                 \{}
+\DoxyCodeLine{122                     it\_out = it;}
+\DoxyCodeLine{123                     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{124                 \}}
+\DoxyCodeLine{125             \}}
+\DoxyCodeLine{126 }
+\DoxyCodeLine{127             it\_out = it;}
+\DoxyCodeLine{128             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{129         \}}
+\DoxyCodeLine{130         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{131         \{}
+\DoxyCodeLine{132             it\_out = datos.end();}
+\DoxyCodeLine{133             \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{134         \}}
+\DoxyCodeLine{135     \}}
+\DoxyCodeLine{136 }
+\DoxyCodeLine{137     \textcolor{comment}{/* Inserta un nuevo registro en el diccionario. Lo hace a través de la clave}}
+\DoxyCodeLine{138 \textcolor{comment}{         e inserta la lista con toda la información asociada a esa clave. Si el}}
+\DoxyCodeLine{139 \textcolor{comment}{         diccionario no estuviera ordenado habría que usar la función sort()}}
+\DoxyCodeLine{140 \textcolor{comment}{         */}}
+\DoxyCodeLine{141     \textcolor{keywordtype}{void} Insertar(\textcolor{keyword}{const} T \&clave, \textcolor{keyword}{const} list<U> \&info)}
+\DoxyCodeLine{142     \{}
+\DoxyCodeLine{143 }
+\DoxyCodeLine{144         \textcolor{keyword}{typename} list<data<T, U> >\mbox{\hyperlink{class_diccionario_1_1iterator}{::iterator}} it;}
+\DoxyCodeLine{145 }
+\DoxyCodeLine{146         \textcolor{keywordflow}{if} (!Esta\_Clave(clave, it))}
+\DoxyCodeLine{147         \{}
+\DoxyCodeLine{148             \mbox{\hyperlink{structdata}{data<T, U>}} p;}
+\DoxyCodeLine{149             p.clave = clave;}
+\DoxyCodeLine{150             p.info\_asoci = info;}
+\DoxyCodeLine{151 }
+\DoxyCodeLine{152             datos.insert(it, p);}
+\DoxyCodeLine{153         \}}
+\DoxyCodeLine{154     \}}
+\DoxyCodeLine{155 }
+\DoxyCodeLine{156     \textcolor{comment}{/*Añade una nueva informacion asocida a una clave que está en el diccionario.}}
+\DoxyCodeLine{157 \textcolor{comment}{         la nueva información se inserta al final de la lista de información.}}
+\DoxyCodeLine{158 \textcolor{comment}{                  Si no esta la clave la inserta y añade la informacion asociada.}}
+\DoxyCodeLine{159 \textcolor{comment}{         */}}
+\DoxyCodeLine{160     \textcolor{keywordtype}{void} AddSignificado\_Palabra(\textcolor{keyword}{const} U \&s, \textcolor{keyword}{const} T \&p)}
+\DoxyCodeLine{161     \{}
+\DoxyCodeLine{162         \textcolor{keyword}{typename} list<data<T, U> >\mbox{\hyperlink{class_diccionario_1_1iterator}{::iterator}} it;}
+\DoxyCodeLine{163 }
+\DoxyCodeLine{164         \textcolor{keywordflow}{if} (!Esta\_Clave(p, it))}
+\DoxyCodeLine{165         \{}
+\DoxyCodeLine{166             Insertar(p, list<U>());}
+\DoxyCodeLine{167         \}}
+\DoxyCodeLine{168 }
+\DoxyCodeLine{169         \textcolor{comment}{//Insertamos el siginificado al final}}
+\DoxyCodeLine{170         (*it).info\_asoci.insert((*it).info\_asoci.end(), s);}
+\DoxyCodeLine{171     \}}
+\DoxyCodeLine{172 }
+\DoxyCodeLine{173     \textcolor{comment}{/* Devuelve la información (una lista) asociada a una clave p. Podrían}}
+\DoxyCodeLine{174 \textcolor{comment}{         haberse definido operator[] como}}
+\DoxyCodeLine{175 \textcolor{comment}{         data<T,U> \& operator[](int pos)\{ return datos.at(pos);\}}}
+\DoxyCodeLine{176 \textcolor{comment}{         const data<T,U> \& operator[](int pos)const \{ return datos.at(pos);\}}}
+\DoxyCodeLine{177 \textcolor{comment}{          */}}
+\DoxyCodeLine{178     list<U> getInfo\_Asoc(\textcolor{keyword}{const} T \&p)}
+\DoxyCodeLine{179     \{}
+\DoxyCodeLine{180         \textcolor{keyword}{typename} list<data<T, U> >\mbox{\hyperlink{class_diccionario_1_1iterator}{::iterator}} it;}
+\DoxyCodeLine{181 }
+\DoxyCodeLine{182         \textcolor{keywordflow}{if} (!Esta\_Clave(p, it))}
+\DoxyCodeLine{183         \{}
+\DoxyCodeLine{184             \textcolor{keywordflow}{return} list<U>();}
+\DoxyCodeLine{185         \}}
+\DoxyCodeLine{186         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{187         \{}
+\DoxyCodeLine{188             \textcolor{keywordflow}{return} (*it).info\_asoci;}
+\DoxyCodeLine{189         \}}
+\DoxyCodeLine{190     \}}
+\DoxyCodeLine{191 }
+\DoxyCodeLine{192     \textcolor{comment}{/*Devuelve el tamaño del diccionario*/}}
+\DoxyCodeLine{193     \textcolor{keywordtype}{int} size()\textcolor{keyword}{ const}}
+\DoxyCodeLine{194 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{195         \textcolor{keywordflow}{return} datos.size();}
+\DoxyCodeLine{196     \}}
+\DoxyCodeLine{197 }
+\DoxyCodeLine{202     \textcolor{keyword}{class }\mbox{\hyperlink{class_diccionario_1_1iterator}{iterator}}}
+\DoxyCodeLine{203     \{}
+\DoxyCodeLine{204     \textcolor{keyword}{public}:}
+\DoxyCodeLine{205         \textcolor{keyword}{typename} list<data<T, U> >\mbox{\hyperlink{class_diccionario_1_1iterator}{::iterator}} it;}
+\DoxyCodeLine{206 }
+\DoxyCodeLine{207         \mbox{\hyperlink{class_diccionario_1_1iterator}{iterator}} \&operator++()}
+\DoxyCodeLine{208         \{}
+\DoxyCodeLine{209             ++it;}
+\DoxyCodeLine{210             \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{211         \}}
+\DoxyCodeLine{212 }
+\DoxyCodeLine{213         \mbox{\hyperlink{class_diccionario_1_1iterator}{iterator}} \&operator-\/-\/()}
+\DoxyCodeLine{214         \{}
+\DoxyCodeLine{215             -\/-\/it;}
+\DoxyCodeLine{216             \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{217         \}}
+\DoxyCodeLine{218 }
+\DoxyCodeLine{219         \mbox{\hyperlink{structdata}{data<T, U>}} \&operator*()}
+\DoxyCodeLine{220         \{}
+\DoxyCodeLine{221             \textcolor{keywordflow}{return} *it;}
+\DoxyCodeLine{222         \}}
+\DoxyCodeLine{223         \textcolor{keywordtype}{bool} operator==(\textcolor{keyword}{const} \mbox{\hyperlink{class_diccionario_1_1iterator}{iterator}} \&i)}
+\DoxyCodeLine{224         \{}
+\DoxyCodeLine{225             \textcolor{keywordflow}{return} i.it == it;}
+\DoxyCodeLine{226         \}}
+\DoxyCodeLine{227 }
+\DoxyCodeLine{228         \textcolor{keywordtype}{bool} operator!=(\textcolor{keyword}{const} \mbox{\hyperlink{class_diccionario_1_1iterator}{iterator}} \&i)}
+\DoxyCodeLine{229         \{}
+\DoxyCodeLine{230             \textcolor{keywordflow}{return} i.it != it;}
+\DoxyCodeLine{231         \}}
+\DoxyCodeLine{232 }
+\DoxyCodeLine{233         \textcolor{keyword}{friend} \textcolor{keyword}{class }Guia\_Tlf;}
+\DoxyCodeLine{234     \};}
+\DoxyCodeLine{235 }
+\DoxyCodeLine{239     \mbox{\hyperlink{class_diccionario_1_1iterator}{iterator}} \mbox{\hyperlink{class_diccionario_aa17ce3d7317d78f5927ae7c0564089cc}{begin}}()}
+\DoxyCodeLine{240     \{}
+\DoxyCodeLine{241         \mbox{\hyperlink{class_diccionario_1_1iterator}{iterator}} i;}
+\DoxyCodeLine{242         i.it = datos.begin();}
+\DoxyCodeLine{243         \textcolor{keywordflow}{return} i;}
+\DoxyCodeLine{244     \}}
+\DoxyCodeLine{245 }
+\DoxyCodeLine{249     \mbox{\hyperlink{class_diccionario_1_1iterator}{iterator}} \mbox{\hyperlink{class_diccionario_adb5cdbfce59b4005bd07473273df3a8e}{end}}()}
+\DoxyCodeLine{250     \{}
+\DoxyCodeLine{251         \mbox{\hyperlink{class_diccionario_1_1iterator}{iterator}} i;}
+\DoxyCodeLine{252         i.it = datos.end();}
+\DoxyCodeLine{253         \textcolor{keywordflow}{return} i;}
+\DoxyCodeLine{254     \}}
+\DoxyCodeLine{255 }
+\DoxyCodeLine{256     \textcolor{keyword}{typename} list<data<T, U> >::const\_iterator \mbox{\hyperlink{class_diccionario_aa17ce3d7317d78f5927ae7c0564089cc}{begin}}()\textcolor{keyword}{ const}}
+\DoxyCodeLine{257 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{258         \textcolor{keywordflow}{return} datos.begin();}
+\DoxyCodeLine{259     \}}
+\DoxyCodeLine{260     \textcolor{keyword}{typename} list<data<T, U> >::const\_iterator \mbox{\hyperlink{class_diccionario_adb5cdbfce59b4005bd07473273df3a8e}{end}}()\textcolor{keyword}{ const}}
+\DoxyCodeLine{261 \textcolor{keyword}{    }\{}
+\DoxyCodeLine{262         \textcolor{keywordflow}{return} datos.end();}
+\DoxyCodeLine{263     \}}
+\DoxyCodeLine{264 }
+\DoxyCodeLine{271     \textcolor{keywordtype}{void} \mbox{\hyperlink{class_diccionario_a0c59804f55f3286b6f05d07aa6cefdf6}{deleteElementByKey}}(\textcolor{keyword}{const} T \&p)}
+\DoxyCodeLine{272     \{}
+\DoxyCodeLine{273         \textcolor{keyword}{typename} list<data<T, U> >\mbox{\hyperlink{class_diccionario_1_1iterator}{::iterator}} it;}
+\DoxyCodeLine{274 }
+\DoxyCodeLine{275         \textcolor{keywordflow}{if} (Esta\_Clave(p, it))}
+\DoxyCodeLine{276         \{}
+\DoxyCodeLine{277             datos.erase(it);}
+\DoxyCodeLine{278         \}}
+\DoxyCodeLine{279     \}}
+\DoxyCodeLine{280 }
+\DoxyCodeLine{289     \mbox{\hyperlink{class_diccionario}{Diccionario<T, U>}} \mbox{\hyperlink{class_diccionario_a01cdf80ec355b27f0043d4337eab637b}{getRangeKeys}}(\textcolor{keyword}{const} T \&p, \textcolor{keyword}{const} T \&t)}
+\DoxyCodeLine{290     \{}
+\DoxyCodeLine{291         \textcolor{keyword}{typename} list<data<T, U> >\mbox{\hyperlink{class_diccionario_1_1iterator}{::iterator}} it;}
+\DoxyCodeLine{292         \textcolor{keyword}{typename} list<data<T, U> >\mbox{\hyperlink{class_diccionario_1_1iterator}{::iterator}} it2;}
+\DoxyCodeLine{293         \textcolor{keywordflow}{if} (!Esta\_Clave(p, it) || !Esta\_Clave(t, it2))}
+\DoxyCodeLine{294         \{}
+\DoxyCodeLine{295             \textcolor{keywordflow}{return} \mbox{\hyperlink{class_diccionario}{Diccionario<T, U>}}();}
+\DoxyCodeLine{296         \}}
+\DoxyCodeLine{297         \textcolor{keywordflow}{else}}
+\DoxyCodeLine{298         \{}
+\DoxyCodeLine{299             \textcolor{keyword}{typename} list<data<T, U> >\mbox{\hyperlink{class_diccionario_1_1iterator}{::iterator}} i;}
+\DoxyCodeLine{300             \mbox{\hyperlink{class_diccionario}{Diccionario<T, U>}} aux;}
+\DoxyCodeLine{301             \textcolor{keywordflow}{for} (i = it; i != it2; ++i)}
+\DoxyCodeLine{302             \{}
+\DoxyCodeLine{303                 aux.Insertar((*i).clave, (*i).info\_asoci);}
+\DoxyCodeLine{304             \}}
+\DoxyCodeLine{305             aux.Insertar((*it2).clave, (*it2).info\_asoci);}
+\DoxyCodeLine{306             \textcolor{keywordflow}{return} aux;}
+\DoxyCodeLine{307         \}}
+\DoxyCodeLine{308     \}}
+\DoxyCodeLine{309 }
+\DoxyCodeLine{316     \mbox{\hyperlink{class_diccionario}{Diccionario<T, U>}} \mbox{\hyperlink{class_diccionario_aa290e0c4ed2c0eaeb927e7d2079ba32e}{diferenciaDiccionario}}(\mbox{\hyperlink{class_diccionario}{Diccionario}} \&g)}
+\DoxyCodeLine{317     \{}
+\DoxyCodeLine{318         \mbox{\hyperlink{class_diccionario}{Diccionario<T, U>}} aux(*\textcolor{keyword}{this});}
+\DoxyCodeLine{319         \textcolor{keyword}{typename} list<data<T, U> >\mbox{\hyperlink{class_diccionario_1_1iterator}{::iterator}} it;}
+\DoxyCodeLine{320 }
+\DoxyCodeLine{321         \textcolor{keyword}{typename} list<data<T, U> >\mbox{\hyperlink{class_diccionario_1_1iterator}{::iterator}} dontUse;}
+\DoxyCodeLine{322 }
+\DoxyCodeLine{323         \textcolor{keywordflow}{for} (it = datos.begin(); it != datos.end(); ++it)}
+\DoxyCodeLine{324         \{}
+\DoxyCodeLine{325             \textcolor{keywordflow}{if} ((Esta\_Clave((*it).clave, dontUse)) \&\& (g.Esta\_Clave((*it).clave, dontUse)))}
+\DoxyCodeLine{326             \{}
+\DoxyCodeLine{327                 aux.\mbox{\hyperlink{class_diccionario_a0c59804f55f3286b6f05d07aa6cefdf6}{deleteElementByKey}}((*it).clave);}
+\DoxyCodeLine{328             \}}
+\DoxyCodeLine{329         \}}
+\DoxyCodeLine{330         \textcolor{keywordflow}{return} aux;}
+\DoxyCodeLine{331     \}}
+\DoxyCodeLine{332 }
+\DoxyCodeLine{342     \mbox{\hyperlink{class_diccionario}{Diccionario<T, U>}} \mbox{\hyperlink{class_diccionario_ad1b17de55a4ec9a37ee2f5aaeb2016c4}{unionDiccionarios}}(\mbox{\hyperlink{class_diccionario}{Diccionario}} \&g)}
+\DoxyCodeLine{343     \{}
+\DoxyCodeLine{344         \mbox{\hyperlink{class_diccionario}{Diccionario<T, U>}} aux(*\textcolor{keyword}{this});}
+\DoxyCodeLine{345         \textcolor{keyword}{typename} list<data<T, U> >\mbox{\hyperlink{class_diccionario_1_1iterator}{::iterator}} it;}
+\DoxyCodeLine{346 }
+\DoxyCodeLine{347         \mbox{\hyperlink{class_diccionario}{Diccionario<T, U>}} difference = g.\mbox{\hyperlink{class_diccionario_aa290e0c4ed2c0eaeb927e7d2079ba32e}{diferenciaDiccionario}}(*\textcolor{keyword}{this});}
+\DoxyCodeLine{348         \mbox{\hyperlink{class_diccionario_1_1iterator}{Diccionario<T, U>::iterator}} iterador;}
+\DoxyCodeLine{349 }
+\DoxyCodeLine{350         \textcolor{keywordflow}{for} (iterador = difference.\mbox{\hyperlink{class_diccionario_aa17ce3d7317d78f5927ae7c0564089cc}{begin}}(); iterador != difference.\mbox{\hyperlink{class_diccionario_adb5cdbfce59b4005bd07473273df3a8e}{end}}(); ++iterador)}
+\DoxyCodeLine{351         \{}
+\DoxyCodeLine{352             aux.Insertar((*iterador).clave, (*iterador).info\_asoci);}
+\DoxyCodeLine{353         \}}
+\DoxyCodeLine{354 }
+\DoxyCodeLine{355         \mbox{\hyperlink{class_diccionario}{Diccionario<T, U>}} equals = g.\mbox{\hyperlink{class_diccionario_aa290e0c4ed2c0eaeb927e7d2079ba32e}{diferenciaDiccionario}}(difference);}
+\DoxyCodeLine{356         \textcolor{keywordflow}{for} (iterador = equals.\mbox{\hyperlink{class_diccionario_aa17ce3d7317d78f5927ae7c0564089cc}{begin}}(); iterador != equals.\mbox{\hyperlink{class_diccionario_adb5cdbfce59b4005bd07473273df3a8e}{end}}(); ++iterador)}
+\DoxyCodeLine{357         \{}
+\DoxyCodeLine{358             \textcolor{keywordflow}{if} (aux.Esta\_Clave((*iterador).clave, it))}
+\DoxyCodeLine{359             \{}
+\DoxyCodeLine{360 }
+\DoxyCodeLine{361                 list<U> l2 = equals.getInfo\_Asoc((*iterador).clave);}
+\DoxyCodeLine{362                 \textcolor{keyword}{typename} list<U>::iterator it3;}
+\DoxyCodeLine{363 }
+\DoxyCodeLine{364                 \textcolor{keywordflow}{for} (it3 = l2.begin(); it3 != l2.end(); ++it3)}
+\DoxyCodeLine{365                 \{}
+\DoxyCodeLine{366                     \textcolor{keywordflow}{if} (!findDefinition((*it3), (*iterador).clave))}
+\DoxyCodeLine{367                     \{}
+\DoxyCodeLine{368                         aux.AddSignificado\_Palabra((*it3), (*iterador).clave);}
+\DoxyCodeLine{369                     \}}
+\DoxyCodeLine{370                 \}}
+\DoxyCodeLine{371             \}}
+\DoxyCodeLine{372         \}}
+\DoxyCodeLine{373 }
+\DoxyCodeLine{374         \textcolor{keywordflow}{return} aux;}
+\DoxyCodeLine{375     \}}
+\DoxyCodeLine{376 \};}
+\DoxyCodeLine{377 }
+\DoxyCodeLine{378 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}
