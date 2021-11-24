@@ -1,5 +1,4 @@
 INCLUDE = .
 
-usoguia : usoguia.cpp 
-	g++  -o usoguia -I$(INCLUDE) usoguia.cpp 
-
+usoguia : src/usoguia.cpp 
+	g++  -o bin/usoguia -I$(INCLUDE) src/usoguia.cpp 

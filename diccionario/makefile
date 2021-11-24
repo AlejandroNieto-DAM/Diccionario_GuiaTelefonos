@@ -1,3 +1,3 @@
-usodiccionario: usodiccionario.cpp
-	g++ -g -o usodiccionario usodiccionario.cpp
+usodiccionario: src/usodiccionario.cpp
+	g++ -g -o bin/usodiccionario src/usodiccionario.cpp
 

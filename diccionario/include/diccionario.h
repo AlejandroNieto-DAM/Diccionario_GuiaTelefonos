@@ -40,7 +40,7 @@ class Diccionario
 {
 
 private:
-	list<data<T, U>> datos;
+	list<data<T, U> > datos;
 
 	void Copiar(const Diccionario<T, U> &D)
 	{
@@ -76,7 +76,7 @@ private:
 
 public:
 	/* Constructor por defecto*/
-	Diccionario() : datos(list<data<T, U>>()) {}
+	Diccionario() : datos(list<data<T, U> >()) {}
 
 	/* Constructor de copias*/
 	Diccionario(const Diccionario &D)
@@ -102,13 +102,13 @@ public:
 		dónde está clave. Si no está, devuelve end() y deja el iterador de salida
 		apuntando al sitio dónde debería estar la clave
 		*/
-	bool Esta_Clave(const T &p, typename list<data<T, U>>::iterator &it_out)
+	bool Esta_Clave(const T &p, typename list<data<T, U> >::iterator &it_out)
 	{
 
 		if (datos.size() > 0)
 		{
 
-			typename list<data<T, U>>::iterator it;
+			typename list<data<T, U> >::iterator it;
 
 			for (it = datos.begin(); it != datos.end(); ++it)
 			{
@@ -141,7 +141,7 @@ public:
 	void Insertar(const T &clave, const list<U> &info)
 	{
 
-		typename list<data<T, U>>::iterator it;
+		typename list<data<T, U> >::iterator it;
 
 		if (!Esta_Clave(clave, it))
 		{
@@ -159,7 +159,7 @@ public:
 		 */
 	void AddSignificado_Palabra(const U &s, const T &p)
 	{
-		typename list<data<T, U>>::iterator it;
+		typename list<data<T, U> >::iterator it;
 
 		if (!Esta_Clave(p, it))
 		{
@@ -177,7 +177,7 @@ public:
 		  */
 	list<U> getInfo_Asoc(const T &p)
 	{
-		typename list<data<T, U>>::iterator it;
+		typename list<data<T, U> >::iterator it;
 
 		if (!Esta_Clave(p, it))
 		{
@@ -202,7 +202,7 @@ public:
 	class iterator
 	{
 	public:
-		typename list<data<T, U>>::iterator it;
+		typename list<data<T, U> >::iterator it;
 
 		iterator &operator++()
 		{
@@ -253,18 +253,24 @@ public:
 		return i;
 	}
 
-	typename list<data<T, U>>::const_iterator begin() const
+	typename list<data<T, U> >::const_iterator begin() const
 	{
 		return datos.begin();
 	}
-	typename list<data<T, U>>::const_iterator end() const
+	typename list<data<T, U> >::const_iterator end() const
 	{
 		return datos.end();
 	}
 
+	/**
+	 * @brief Element a values by it`s key
+	 * 
+	 * @param p is the key of the value we want to delete
+	 * @post the dictionary will delete the value if exists
+	 */
 	void deleteElementByKey(const T &p)
 	{
-		typename list<data<T, U>>::iterator it;
+		typename list<data<T, U> >::iterator it;
 
 		if (Esta_Clave(p, it))
 		{
@@ -272,17 +278,25 @@ public:
 		}
 	}
 
+	/**
+	 * @brief Get the values in a range based on a two keys of the dictionary
+	 * 
+	 * @param p is the key we will part to find the values (included)
+	 * @param t is the key we will finish to find the values (included)
+	 * @pre p is ordered before t
+	 * @return Diccionario<T, U> the values between p and t
+	 */
 	Diccionario<T, U> getRangeKeys(const T &p, const T &t)
 	{
-		typename list<data<T, U>>::iterator it;
-		typename list<data<T, U>>::iterator it2;
+		typename list<data<T, U> >::iterator it;
+		typename list<data<T, U> >::iterator it2;
 		if (!Esta_Clave(p, it) || !Esta_Clave(t, it2))
 		{
 			return Diccionario<T, U>();
 		}
 		else
 		{
-			typename list<data<T, U>>::iterator i;
+			typename list<data<T, U> >::iterator i;
 			Diccionario<T, U> aux;
 			for (i = it; i != it2; ++i)
 			{
@@ -293,12 +307,18 @@ public:
 		}
 	}
 
+	/**
+	 * @brief That method does the difference of two dictionaries (quit B values that exist in A)
+	 * 
+	 * @param g is the other dictionary we want to do the difference
+	 * @return Diccionario<T, U> is the result of the difference of this - g (dictionaries)
+	 */
 	Diccionario<T, U> diferenciaDiccionario(Diccionario &g)
 	{
 		Diccionario<T, U> aux(*this);
-		typename list<data<T, U>>::iterator it;
+		typename list<data<T, U> >::iterator it;
 
-		typename list<data<T, U>>::iterator dontUse;
+		typename list<data<T, U> >::iterator dontUse;
 
 		for (it = datos.begin(); it != datos.end(); ++it)
 		{
@@ -310,10 +330,19 @@ public:
 		return aux;
 	}
 
+	/**
+	 * @brief In this method to do this more efficient first do the difference of the dictionaries and add that values to our return dictionary
+	 * and then we do the difference to the other dictionary with the difference first dictionary to get the same values in the other dictionary
+	 * and we start to run all the values that are equals comparing all their definitions too to see if they are different or not and if the definition
+	 * is different of all the definitions that have the word we add it.
+	 * 
+	 * @param g is the other dictionary we want to do the union
+	 * @return Diccionario<T, U> is the result dictionary of the union of this and the param value
+	 */
 	Diccionario<T, U> unionDiccionarios(Diccionario &g)
 	{
 		Diccionario<T, U> aux(*this);
-		typename list<data<T, U>>::iterator it;
+		typename list<data<T, U> >::iterator it;
 
 		Diccionario<T, U> difference = g.diferenciaDiccionario(*this);
 		Diccionario<T, U>::iterator iterador;
